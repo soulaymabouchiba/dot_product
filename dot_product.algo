@@ -1,0 +1,110 @@
+
+ALGORITHM distinct_EL
+VAR
+    tab,tab1,tab2 : ARRAY_OF INTEGER;
+    sum,i,T,m: INTEGER;
+    
+BEGIN
+    sum := 0;
+    T := tab1.length; 
+    m := tab2.length;
+    FOR i=0 FROM 0 TO m+T-1 STEP step 1  DO
+        count :=1;
+        IF ((i<T)) THEN
+            tab[i] = tab1[i];
+        ELSE
+            tab[i] = tab2[i-T];
+        END_IF
+        FOR j=i+1 FROM 0 TO m+T-1 STEP step  DO
+            IF (tab[j]=tab[i]) THEN
+                count := count + 1;
+            END_IF
+            IF (count = 1) THEN
+                sum := sum + tab[i]
+            END_IF
+        END_FOR  
+    END_FOR
+    writlen("sum:" +sum);
+END
+
+ 
+ ALGORITHM distinct_EL
+ VAR
+        htab : HASH_TABLE<STRING,STRING>;
+        set1,set2 : ARRAY_OF INTEGER;
+        sum,x,j: INTEGER;
+BEGIN
+    sum :=0;
+    FOR x FROM 0 TO set1.length-1 STEP 1  DO
+        htab.Insert(set1[x],1);
+    END_FOR
+    FOR j FROM 0 TO set2.length-1 STEP 1  DO
+        IF (htab.lookUp(set2[j])) THEN
+            htab.set(set2[j],2);
+        ELSE
+            htab.Insert(set2[j],1);
+        END_IF
+    END_FOR
+    FOR x FROM 0 TO set1.length-1 STEP 1  DO
+        IF (htab.get(set1[x]=1)) THEN
+            sum := sum+set1[x];
+        END_IF
+    END_FOR
+        FOR j FROM 0 TO set2.length-1 STEP 1  DO
+            IF (htab.get(set2[j]=1)) THEN
+                sum := sum+set2[j];
+            END_IF
+        END_FOR
+    writlen("sum:" +sum);
+ END
+
+
+
+ALGORITHM overlapping_EL
+VAR
+    tab1,tab2 : ARRAY_OF INTEGER;
+    sum,x,j,n: INTEGER;
+    
+BEGIN
+    sum := 0;
+    n := tab1.length; tab2.length;
+
+    FOR i  FROM 0 TO n-1 STEP 1  DO
+        IF (tab1[x]==tab2[j]) THEN
+            sum := sum + tab [i];
+        END_IF
+    END_FOR
+    FOR j  FROM 0 TO n-1 STEP 1  DO
+        IF (tab1[j]==tab2[x]) THEN
+            sum := sum + tab [j];
+        END_IF    
+    END_FOR
+    writlen("sum:" +sum);
+END
+
+
+
+ALGORITHM overlapping_EL
+    VAR
+        htab : HASH_TABLE<STRING,STRING>;
+        set1,set2 : ARRAY_OF INTEGER;
+        sum,x,j: INTEGER;
+    BEGIN
+    sum :=0;
+    FOR x FROM 0 TO set1.length-1 STEP 1  DO
+        htab.Insert(set1[x],1);
+    END_FOR
+    FOR j FROM 0 TO set2.length-1 STEP 1  DO
+        IF (htab.lookUp(set2[j])) THEN
+            htab.set(set2[j],2);
+    ELSE
+        htab.Insert(set2[j],1);
+        END_IF
+    END_FOR
+    FOR x FROM 0 TO set1.length-1 STEP 1  DO
+        IF (htab.get(set1[x]=2)) THEN
+            sum := sum+set1[x]*2;
+        END_IF
+    END_FOR 
+    writlen("sum:" +sum);
+END
